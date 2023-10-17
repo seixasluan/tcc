@@ -1,0 +1,32 @@
+.fuel_datails_container {
+  margin-top: 3em;
+}
+
+.fuel_datails_container h1 {
+  text-align: center;
+}
+
+.fuel_datails_container p {
+  margin-bottom: 1em;
+  font-size: 1.1em;
+}
+
+.fuel_datails_container button {
+  text-decoration: none;
+  background-color: #25b456;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s;
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1.1em;
+  margin-left: 1em;
+  max-width: 200px;
+  min-height: 2.5em;
+}
+
+.fuel_datails_container button:hover {
+  background-color: #1c8a42;
+}

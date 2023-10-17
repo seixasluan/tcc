@@ -1,0 +1,52 @@
+.fuel_home_header {
+  margin-bottom: 2em;
+}
+
+.fuel_home_header h1 {
+  margin-bottom: .3em;
+}
+
+.fuel_container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.fuel_card {
+  width: 22%;
+  margin: 1.5%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 2px solid #FFD400;
+  padding: 2em;
+  border-radius: 10px;
+}
+
+.fuel_card h3 {
+  color: #16479d;
+  margin-bottom: 1em;
+  font-size: 1.6em;
+  padding: 8px;
+}
+
+.fuel_card p {
+  margin-bottom: 1em;
+}
+
+.fuel_card a {
+  text-decoration: none;
+  background-color: #FFD400;
+  color: #16479d;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.1em;
+}
+
+.fuel_card a:hover {
+  background-color: #E7C30D;
+  color: #fff;
+}
