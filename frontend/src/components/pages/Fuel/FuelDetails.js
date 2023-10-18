@@ -37,7 +37,7 @@ function FuelDetails() {
             <span className='bold'>Link da localização: </span> <a rel='noreferrer' href={fuel.link} target='_blank'>Vizualizar posto no mapa</a>
           </p>
           <p>
-            Obs: As localizações presentes no link acima podem não estar 100% precisas.
+            *<span className='bold'>Obs: </span>As localizações presentes no link acima podem não estar 100% precisas.*
           </p>
           <p>
             <span className='bold'>Preço da Gasolina: </span> R$ {fuel.price}

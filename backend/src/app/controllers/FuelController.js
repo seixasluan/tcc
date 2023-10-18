@@ -63,6 +63,7 @@ module.exports = class FuelController {
     });
 
     // cria o link do local
+    console.log(coordinates.lat, coordinates.lng);
     const link = `https://www.google.com/maps?q=${coordinates.lat},${coordinates.lng}`;
     console.log(link);
     
@@ -196,7 +197,53 @@ module.exports = class FuelController {
     else { updatedData.name = name }
     
     if (!address) { return res.status(422).json({message: 'O endereço do posto é obrigatório!'});}
-    else { updatedData.address = address }
+    else { 
+      updatedData.address = address
+      
+      // funçao que busca as coordenadas pelo endereço 
+      async function getCoords(endereco) {
+        try{
+          const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+          const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+            params: {
+              address: endereco,
+              key: apiKey,
+            },
+          });
+          const { results } = response.data;
+          if (results.length > 0) {
+            const { location } = results[0].geometry;
+            return location;
+          } else {
+            res.status(422).json({message: 'Endereço não encontrado!'});
+          }
+        } catch (err) {
+          return res.status(422).json({message: `Erro ao obter latitude e longitude: ${err}`});
+        }
+      }
+
+      // chama a função 'getCoords' e retorna um objeto com a latitude e longitude
+      const coordinates = await getCoords(address)
+      .then((location) => {
+        const coords = {
+          lat: location.lat,
+          lng: location.lng,
+        };
+        return coords;
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+
+      // cria o link do local
+      console.log(coordinates.lat, coordinates.lng);
+      const link = `https://www.google.com/maps?q=${coordinates.lat},${coordinates.lng}`;
+      console.log(link);
+
+      updatedData.lat = coordinates.lat;
+      updatedData.lng = coordinates.lng;
+      updatedData.link = link;
+    }
     
     if (!brand) { return res.status(422).json({message: 'A marca/bandeira do posto é obrigatória!'});}
     else { updatedData.brand = brand }
@@ -206,6 +253,7 @@ module.exports = class FuelController {
 
     try{
       await Fuel.findByIdAndUpdate(id, updatedData);
+      console.log(updatedData);
       res.status(200).json({message: 'Posto atualizado com sucesso!'});
     } catch (err) {
       res.status(500).json({ err });
