@@ -199,7 +199,11 @@ module.exports = class FuelController {
     if (!address) { return res.status(422).json({message: 'O endereço do posto é obrigatório!'});}
     else { 
       updatedData.address = address
-      
+      // verificar se o posto já está cadastrado
+      if (fuel.address !== address){
+          const fuelExists = await Fuel.findOne({address: address});
+          if (fuelExists) { return res.status(422).json({message: 'Esse endereço já está cadastrado!'}); }
+      }    
       // funçao que busca as coordenadas pelo endereço 
       async function getCoords(endereco) {
         try{
